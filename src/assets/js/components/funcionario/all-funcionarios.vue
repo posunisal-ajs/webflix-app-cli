@@ -1,34 +1,7 @@
 <template>
     
     <div id="all-funcionarios" class="container padd-mancha">
-        <!-- <div class="col-xs-12 col-sm-10 col-lg-10">
-            <h2>Todos filmes</h2>
 
-            <p><router-link :to="{ name: 'create_funcionario' }" class="btn btn-primary">Novo</router-link></p>
-
-            <div class="form-group">
-                <input type="text" name="search" v-model="movieSearch" placeholder="Procurar funcionários" class="form-control" v-on:keyup="searchFuncionario">
-            </div>
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <td>Nome</td>
-                </tr>
-                </thead>
-
-                <tbody>
-                    <tr v-for="movie in movies">
-                        <td>{{ movie.name }}</td>
-                        <!-- <td v-for="departamento in departamentos" v-if="funcionario.departmentId == departamento.id">{{ departamento.description}} </td>
-                        
-                        <td>
-                            <router-link :to="{name: 'edit_funcionario', params: { id: funcionario.id }}" class="btn btn-primary">Editar</router-link>
-                            <router-link :to="{name: 'delete_funcionario', params: { id: funcionario.id }}" class="btn btn-warning">Excluir</router-link>
-                        </td> -->
-                    <!--</tr>
-                </tbody>
-            </table>
-        </div> -->
         <div class="w-site">       
             <div class="msg-loading">
                 <div class="mensagem">
@@ -40,42 +13,14 @@
                     <div class="row justify-content-center">
                         <div class="col-12 col-xs-12 col-md-12 col-lg-12 text-center">
                             <div>
-                                <!-- <h2 class="pb-4">Salvar filme</h2> -->
-                                
-                            
-                                <!-- <form class="form-group col-12 col-xs-12 col-md-12 col-lg-12 align-itens-center justify-content-center d-flex" action="salvarFilme" method="post" enctype="multipart/form-data">
-                                    <div class="form-group col-12 col-xs-12 col-md-8 col-lg-6">
-                                        <div class="form-group">
-                                        <input type="text" placeholder="Nome" name="nome" class="form-control" required="required"/>
-                                        </div>
-                                        <div class="form-group">
-                                        <input type="text" placeholder="Genero" name="genero" class="form-control" required="required"/>
-                                        </div>
-                                        <div class="form-group">
-                                        <input type="text" placeholder="Lançamento" name="lancamento" class="form-control" required="required"/>
-                                        </div>
-                                        <div class="form-group">
-                                        <textarea  placeholder="Informações" name="informacoes" class="form-control" required="required"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class='input-wrapper'>
-                                                <label for='file'>
-                                                    Selecionar imagem
-                                                </label>
-                                        <input type="file" name="file" id="file" size="60" />
-                                        <img id="img-1-add" class="img-page" src="#" alt="" />
-                                        <input type="hidden" name="imgFilme" id="imgFilme" value="">
-                                            </div>
-                                    </div>
-                                        <button type="submit" value="Upload" class="btn btn-success pull-right mt-4">Salvar</button>
-                                    </div>
-                                    <br/>
-                                </form> -->
                                 <div class="clearfix"></div>
                                     <div class="row">
                                     <div class="col pt-4">
                                         <h2 class="pb-4">Lista de filmes</h2>
-                                        <button class="btn btn-success pull-right mb-4" data-target="#modalAdd" data-toggle="modal">Adicionar <i class="fa fa-plus ml-1" ></i></button>
+                                        <div class="form-group">
+                                            <input type="text" name="search" v-model="movieSearch" placeholder="Procurar filmes" class="form-control" v-on:keyup="searchMovie">
+                                        </div>
+                                        <router-link :to="{ name: 'create_funcionario' }" data-target="#modalAdd" data-toggle="modal" class="btn btn-success pull-right mb-4">Adicionar <i class="fa fa-plus ml-1" ></i></router-link>
                                         <table class="table table-car-mob">
                                             <thead class="thead-default">
                                                 <tr>
@@ -89,7 +34,7 @@
                                             <tbody>
 
                                                 <tr id="filme" class="fwdDetalhe" data-item="" v-for="movie in movies">
-                                                    <td class="fwdId" data-item=""></td>
+                                                    <td class="fwdId" data-item="">{{ movie.id }}</td>
                                                     <td class="fwdNome" data-item="">{{ movie.name }}</td>
                                                     <td class="fwdGenero" data-item=""></td>
                                                     <td class="fwdLancamento d-none" data-item=""></td>
@@ -277,66 +222,10 @@
 </template>
 
 <script>
-    
-
-    // export default{
-    //     data(){
-    //         return{
-    //             movies: [],
-    //             originalMovies: [],
-    //             movieSearch: '',
-    //         }
-    //     },
-    //     computed: {
-    //       },
-
-    //     created: function()
-    //     {
-    //         this.fetchMovieData();
-    //     },
-    //     methods: {
-    //         fetchMovieData: function()
-    //         {
-    //             this.$http.get('https://limitless-tundra-52590.herokuapp.com/api/v1/movie/all').then((response) => {
-    //                 this.movies= response.body;
-    //                 this.originalMovies = this.movies
-    //                 console.log(this.originalMovies)
-    //             }, (response) => {
-    //                 console.log(response)
-    //             });
-    //         },
-
-    //         searchMovie: function()
-    //         {
-    //             if(this.movieSearch == '')
-    //             {
-    //                 this.movies= this.originalMovies;
-
-    //                 console.log(this.movies);
-    //                 return;
-    //             }
-
-    //             var searchedMovies = [];
-    //             for(var i = 0; i < this.originalMovies.length; i++)
-    //             {   
-    //                 console.log('entrou');
-    //                 var movieName = this.originalMovies[i]['name'].toLowerCase();
-
-    //                 if(movieName.indexOf(this.movieSearch.toLowerCase()) >= 0)
-    //                 {
-    //                     searchedMovies.push(this.originalMovies[i]);
-    //                 }
-    //             }
-
-    //             this.movies= searchedMovies;
-    //         }
-    //     }
-    // }
     export default{
         data(){
             return{
-                funcionarios: [],
-                departamentos: [],
+                movies: [],
                 originalMovies: [],
                 movieSearch: '',
             }
@@ -347,7 +236,6 @@
         created: function()
         {
             this.fetchMovieData();
-            this.fetchDepartamentoData();
         },
         methods: {
             fetchMovieData: function()
@@ -359,16 +247,8 @@
 
                 });
             },
-            fetchDepartamentoData: function()
-            {
-                this.$http.get('http://localhost:8080/departments').then((response) => {
-                    this.departamentos= response.body;
-                }, (response) => {
 
-                });
-            },
-
-            searchFuncionario: function()
+            searchMovie: function()
             {
                 if(this.movieSearch == '')
                 {
@@ -391,4 +271,5 @@
             }
         }
     }
+    
 </script>
