@@ -1,0 +1,7 @@
+@import 'fonts.css';
+@import 'funcionarios.css';
+@import 'validacao.css';
+
+/*parts*/
+@import 'header.css';
+@import 'footer.css';

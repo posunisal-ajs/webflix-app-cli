@@ -1,0 +1,60 @@
+@font-face {
+	font-family: 'Simple Sans-Medium';
+	src: url('../../src/fonts/SimpleSans-Medium.eot');
+	src: url('../../src/fonts/SimpleSans-Medium.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-Medium.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-Medium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Simple Sans-Bold';
+	src: url('../../src/fonts/SimpleSans-Bold.eot');
+	src: url('../../src/fonts/SimpleSans-Bold.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-Bold.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Simple Sans-Regular';
+	src: url('../../src/fonts/SimpleSans-Regular.eot');
+	src: url('../../src/fonts/SimpleSans-Regular.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-Regular.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Simple Sans-Light';
+	src: url('../../src/fonts/SimpleSans-Light.eot');
+	src: url('../../src/fonts/SimpleSans-Light.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-Light.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Simple Sans-Black';
+	src: url('../../src/fonts/SimpleSans-Black.eot');
+	src: url('../../src/fonts/SimpleSans-Black.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-Black.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-Black.ttf') format('truetype');
+	font-weight: 900;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Simple Sans-RegularOblique';
+	src: url('../../src/fonts/SimpleSans-RegularOblique.eot');
+	src: url('../../src/fonts/SimpleSans-RegularOblique.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-RegularOblique.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-RegularOblique.ttf') format('truetype');
+	font-weight: 500;
+	font-style: italic;
+}
