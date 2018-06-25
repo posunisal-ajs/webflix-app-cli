@@ -20,7 +20,8 @@
                                         <div class="form-group">
                                             <input type="text" name="search" v-model="movieSearch" placeholder="Procurar filmes" class="form-control" v-on:keyup="searchMovie">
                                         </div>
-                                        <router-link :to="{ name: 'create_funcionario' }" data-target="#modalAdd" data-toggle="modal" class="btn btn-success pull-right mb-4">Adicionar <i class="fa fa-plus ml-1" ></i></router-link>
+                                        <!-- <router-link :to="{ name: 'create_funcionario' }" class="btn btn-success pull-right mb-4">Adicionar <i class="fa fa-plus ml-1" ></i></router-link> -->
+                                        <button data-target="#modalAdd" data-toggle="modal" class="btn btn-success pull-right mb-4">Adicionar <i class="fa fa-plus ml-1" ></i></button>
                                         <table class="table table-car-mob">
                                             <thead class="thead-default">
                                                 <tr>
@@ -32,27 +33,28 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
                                                 <tr id="filme" class="fwdDetalhe" data-item="" v-for="movie in movies">
-                                                    <td class="fwdId" data-item="">{{ movie.id }}</td>
-                                                    <td class="fwdNome" data-item="">{{ movie.name }}</td>
-                                                    <td class="fwdGenero" data-item=""></td>
-                                                    <td class="fwdLancamento d-none" data-item=""></td>
-                                                    <td class="fwdInformacoes d-none" data-item=""></td>
-                                                    <td class="fwdImg" data-item="">
-                                                        <span class="fwdImgName d-none" data-item=""></span>	
-                                                        <img class="img-table fwdImageTable" data-item="" src="" /></td>
+                                                    <td class="fwdId" :data-item="movie.id">{{ movie.id }}</td>
+                                                    <td class="fwdNome" :data-item="movie.id">{{ movie.name }}</td>
+                                                    <td class="fwdGenero" :data-item="movie.id"><span v-if="movie.category[0]">{{movie.category[0].name}}</span></td>
+                                                    <td class="fwdLancamento d-none" :data-item="movie.id">{{movie.publishIn}}</td>
+                                                    <td class="fwdInformacoes d-none" :data-item="movie.id">{{movie.description}}</td>
+                                                    <td class="fwdImg" :data-item="movie.id">
+                                                        <span class="fwdImgName d-none" :data-item="movie.id"></span>
+                                                        <span v-if="movie.images && movie.images[0]">
+                                                            <img class="img-table fwdImageTable" :data-item="movie.id" :src="movie.images[0].url" />
+                                                        </span>
+                                                    </td>
                                                     <td>
                                                         <div class="d-inline-block">
-                                                            <button type="submit" class="btn btn-icon icon-1 actOpenEditar" data-item="" data-target="#modalEdit" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                                            <button type="submit" class="btn btn-icon icon-1 actOpenEditar" :data-item="movie.id" data-target="#modalEdit" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                                         </div>
                                                         <div class="d-inline-block">
-                                                            <button class="btn btn-icon icon-2 actOpenDetalhes" data-item="" data-target="#modalDelete" data-toggle="modal"><i class="fa fa-trash-o" ></i></button>
+                                                            <button class="btn btn-icon icon-2 actOpenDetalhes" :data-item="movie.id" data-target="#modalDelete" data-toggle="modal"><i class="fa fa-trash-o" ></i></button>
                                                         </div>
-                                                        <button class="btn btn-icon icon-2 actOpenDetalhes" data-item="" data-target="#modalDetalhes" data-toggle="modal"><i class="fa fa-plus" ></i></button>
+                                                        <button class="btn btn-icon icon-2 actOpenDetalhes" :data-item="movie.id" data-target="#modalDetalhes" data-toggle="modal"><i class="fa fa-plus" ></i></button>
                                                     </td>
                                                 </tr>
-                                            
                                             </tbody> 
                                         </table>
                                     </div>
@@ -68,6 +70,7 @@
         Launch demo modal
         </button> -->
 
+        <!-- <notification v-bind:notifications="notifications"></notification> -->
         <!-- Modal Adicionar -->
         <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -78,19 +81,19 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="salvarFilme" method="post" enctype="multipart/form-data" class="d-inline-block">
+                <form v-on:submit.prevent="addMovie" method="post" class="d-inline-block">
                     <div class="modal-body modal-body-bg">
                         <div class="form-group">
-                        <input type="text" placeholder="Nome" name="nome" class="form-control" required="required"/>
+                            <input type="text" placeholder="Nome" name="nome" v-model="movie.name" id="movie_name" class="form-control" required="required"/>
                         </div>
                         <div class="form-group">
-                        <input type="text" placeholder="Genero" name="genero" class="form-control" required="required"/>
+                            <input type="text" placeholder="Genero" name="genero" class="form-control" required="required"/>
                         </div>
                         <div class="form-group">
-                        <input type="text" placeholder="Lançamento" name="lancamento" class="form-control" required="required"/>
+                            <input type="text" placeholder="Lançamento" name="lancamento" class="form-control" required="required"/>
                         </div>
                         <div class="form-group">
-                        <textarea  placeholder="Informações" name="informacoes" rows="4" class="form-control" required="required"></textarea>
+                            <textarea  placeholder="Informações" name="informacoes" rows="4" class="form-control" required="required"></textarea>
                         </div>
                         <div class="form-group">
                             <div class='input-wrapper'>
@@ -228,6 +231,8 @@
                 movies: [],
                 originalMovies: [],
                 movieSearch: '',
+                movie:{},
+                notifications:[],
             }
         },
         computed: {
@@ -241,10 +246,31 @@
             fetchMovieData: function()
             {
                 this.$http.get('https://limitless-tundra-52590.herokuapp.com/api/v1/movie/all').then((response) => {
-                    this.movies= response.body;
+                    this.movies = response.body;
                     this.originalMovies = this.movies
+                    console.log(this.originalMovies[0].images[0].url)
                 }, (response) => {
 
+                });
+            },
+
+            addMovie: function()
+            {
+                this.$http.post('https://limitless-tundra-52590.herokuapp.com/api/v1/movie', this.movie, {
+                    headers : {
+                        'Content-Type' : 'application/json',
+                        "Accept": "*/*"
+                    }
+                }).then((response) => {
+                    this.notifications.push({
+                        type: 'success',
+                        message: 'Filme Cadastrado com sucesso.'
+                    });
+                }, (response) => {
+                    this.notifications.push({
+                        type: 'error',
+                        message: 'Filme não cadastrado.'
+                    });
                 });
             },
 
@@ -267,8 +293,12 @@
                     }
                 }
 
-                this.movies= searchedFuncionarios;
+                this.movies = searchedFuncionarios;
             }
+        },
+
+        components: {
+            'notification' : Notification
         }
     }
     
