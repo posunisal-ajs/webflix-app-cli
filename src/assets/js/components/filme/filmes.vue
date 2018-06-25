@@ -143,7 +143,7 @@
                 </div>
                 </div>
             </div>
-        </div>
+        </div> 
 
         <!-- Modal Deletar -->
         <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">

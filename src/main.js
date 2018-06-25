@@ -11,16 +11,16 @@ import App from './App.vue'
 // const Footer = require('./assets/js/components/footer.vue');
 
 //Funcionario
-const AllFilmes = require('./assets/js/components/filme/all-filmes.vue');
+const Filmes = require('./assets/js/components/filme/filmes.vue');
 const CreateFuncionario = require('./assets/js/components/funcionario/create-funcionario.vue');
 const EditFuncionario = require('./assets/js/components/funcionario/edit-funcionario.vue');
 const DeleteFuncionario = require('./assets/js/components/funcionario/delete-funcionario.vue');
 
 const routes = [
     {
-        name: 'all_filmes',
+        name: 'filmes',
         path: '/',
-        component: AllFilmes,
+        component: Filmes,
     },
     {
         name: 'create_funcionario',
