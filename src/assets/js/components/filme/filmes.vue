@@ -98,7 +98,7 @@
                             <textarea  placeholder="Informações" name="informacoes" v-model="movie.description" id="movie_description" rows="4" class="form-control" required="required"></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="text" placeholder="Link da imagem" name="imagem" v-model="movie.images" :value="id: 'teste'" class="form-control" required="required"/>
+                            <input type="text" placeholder="Link da imagem" name="imagem" class="form-control" required="required"/>
                         </div>
                         <!-- <div class="form-group">
                             <div class='input-wrapper'>
