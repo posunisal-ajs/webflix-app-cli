@@ -33,10 +33,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr id="filme" class="fwdDetalhe" data-item="" v-for="movie in movies">
+                                                <tr id="filme" class="fwdDetalhe" :data-item="movie.id" v-for="movie in movies">
                                                     <td class="fwdId" :data-item="movie.id">{{ movie.id }}</td>
                                                     <td class="fwdNome" :data-item="movie.id">{{ movie.name }}</td>
-                                                    <td class="fwdGenero" :data-item="movie.id"><span v-if="movie.category[0]">{{movie.category[0].name}}</span></td>
+                                                    <td class="fwdGenero" :data-item="movie.id"><span v-if="movie.category && movie.category[0]">{{movie.category[0].name}}</span></td>
                                                     <td class="fwdLancamento d-none" :data-item="movie.id">{{movie.publishIn}}</td>
                                                     <td class="fwdInformacoes d-none" :data-item="movie.id">{{movie.description}}</td>
                                                     <td class="fwdImg" :data-item="movie.id">
@@ -70,7 +70,6 @@
         Launch demo modal
         </button> -->
 
-        <!-- <notification v-bind:notifications="notifications"></notification> -->
         <!-- Modal Adicionar -->
         <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -81,21 +80,27 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <notification v-bind:notifications="notifications"></notification>
                 <form v-on:submit.prevent="addMovie" method="post" class="d-inline-block">
                     <div class="modal-body modal-body-bg">
                         <div class="form-group">
                             <input type="text" placeholder="Nome" name="nome" v-model="movie.name" id="movie_name" class="form-control" required="required"/>
                         </div>
-                        <div class="form-group">
-                            <input type="text" placeholder="Genero" name="genero" class="form-control" required="required"/>
+                       <div class="form-group">
+                            <select class="form-control" id="sel1" v-model="movie.category">
+                                <option v-for="category in categoryes" :value="[category]" value="[category]">{{category.name}}</option> 
+                            </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" placeholder="Lançamento" name="lancamento" class="form-control" required="required"/>
+                            <input type="text" placeholder="Ano de Lançamento" name="lancamento" v-model="movie.publishIn" id="movie_publishIn" class="form-control" required="required"/>
                         </div>
                         <div class="form-group">
-                            <textarea  placeholder="Informações" name="informacoes" rows="4" class="form-control" required="required"></textarea>
+                            <textarea  placeholder="Informações" name="informacoes" v-model="movie.description" id="movie_description" rows="4" class="form-control" required="required"></textarea>
                         </div>
                         <div class="form-group">
+                            <input type="text" placeholder="Link da imagem" name="imagem" v-model="movie.images" :value="id: 'teste'" class="form-control" required="required"/>
+                        </div>
+                        <!-- <div class="form-group">
                             <div class='input-wrapper'>
                                 <div class="w100 text-center">
                                     <label for='file'>
@@ -108,7 +113,7 @@
                                 <input type="hidden" name="imgFilme" id="imgFilme" value="">
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="modal-footer">
                             <input type="hidden" name="id" class="fwdIdFilme" value=""/>
@@ -184,16 +189,18 @@
                 <form action="editarFilme" method="post" enctype="multipart/form-data" class="d-inline-block">
                     <div class="modal-body modal-body-bg">
                         <div class="form-group">
-                        <input type="text" placeholder="Nome" name="nome" class="form-control fwdTituloEdit" required="required"/>
+                            <input type="text" placeholder="Nome" name="nome" class="form-control fwdTituloEdit" required="required"/>
                         </div>
                         <div class="form-group">
-                        <input type="text" placeholder="Genero" name="genero" class="form-control fwdGeneroEdit" required="required"/>
+                            <select class="form-control" id="sel1" v-model="movie.category">
+                                <option v-for="category in categoryes" :value="[category]" value="[category]">{{category.name}}</option> 
+                            </select>
                         </div>
                         <div class="form-group">
-                        <input type="text" placeholder="Lançamento" name="lancamento" class="form-control fwdLancamentoEdit" required="required"/>
+                            <input type="text" placeholder="Lançamento" name="lancamento" class="form-control fwdLancamentoEdit" required="required"/>
                         </div>
                         <div class="form-group">
-                        <textarea  placeholder="Informações" name="informacoes" rows="4" class="form-control fwdInformacoesEdit" required="required"></textarea>
+                            <textarea  placeholder="Informações" name="informacoes" rows="4" class="form-control fwdInformacoesEdit" required="required"></textarea>
                         </div>
                         <div class="form-group">
                             <div class='input-wrapper'>
@@ -225,6 +232,7 @@
 </template>
 
 <script>
+    import Notification from '../notifications.vue';
     export default{
         data(){
             return{
@@ -233,14 +241,16 @@
                 movieSearch: '',
                 movie:{},
                 notifications:[],
+                categoryes:[],
             }
         },
         computed: {
-          },
+        },
 
         created: function()
         {
             this.fetchMovieData();
+            this.categoryData();
         },
         methods: {
             fetchMovieData: function()
@@ -248,7 +258,18 @@
                 this.$http.get('https://limitless-tundra-52590.herokuapp.com/api/v1/movie/all').then((response) => {
                     this.movies = response.body;
                     this.originalMovies = this.movies
-                    console.log(this.originalMovies[0].images[0].url)
+                    console.log(this.originalMovies[0].images);
+                }, (response) => {
+
+                });
+            },
+
+            categoryData: function()
+            {
+                this.$http.get('https://limitless-tundra-52590.herokuapp.com/api/v1/category/all').then((response) => {
+                    this.categoryes = response.body;
+                    this.originalCategoryes = this.categoryes
+                    console.log(this.originalCategoryes)
                 }, (response) => {
 
                 });
@@ -266,6 +287,7 @@
                         type: 'success',
                         message: 'Filme Cadastrado com sucesso.'
                     });
+                    this.fetchMovieData();
                 }, (response) => {
                     this.notifications.push({
                         type: 'error',
