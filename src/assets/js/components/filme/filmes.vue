@@ -125,6 +125,58 @@
             </div>
         </div>
 
+        <!-- Modal Editar -->
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEdit" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <div class="div--modal__editar"><h5 class="modal-title">Editar filme</h5></div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <notification v-bind:notifications="notifications"></notification>
+                <form v-on:submit.prevent="editMovie" method="post" class="d-inline-block">
+                    <div class="modal-body modal-body-bg">
+                        <div class="form-group">
+                            <input type="text" placeholder="Nome" name="nome" id="name_edit" class="form-control fwdTituloEdit" required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="sel1" v-model="movieEdit.category">
+                                <option v-for="category in categoryes" :value="[category]" value="[category]" id="category_edit">{{category.name}}</option> 
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Ano de lançamento" name="lancamento" class="form-control fwdLancamentoEdit" id="ano_edit" required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <textarea  placeholder="Informações" name="informacoes" rows="4" class="form-control fwdInformacoesEdit" id="informacoes_edit" required="required"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class='input-wrapper'>
+                                <div class="w100 text-center">
+                                    <label for='fileEdit'>
+                                        Selecionar imagem de capa
+                                    </label>
+                                </div>
+                                <div class="w100 text-center">
+                                    <input type="file" name="fileEdit" id="fileEdit" size="60" />
+                                    <img id="img-1-edit" class="img-page" src="#" alt="" />
+                                    <input type="hidden" name="imgFilmeEdit" id="imgFilmeEdit" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                            <input type="hidden" name="id" class="fwdIdFilme inptEdit" value=""/>
+                            <button type="submit" class="btn btn-success">Alterar</button>
+                            <button type="button" class="btn btn-blue-nav" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+
         <!-- Modal List -->
         <div class="modal fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="modalDetalhes" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -165,64 +217,13 @@
                     <div class="fwdImgFilme div--modal__imgFilme"><img class="img--modal__imgFilme fwdImagemDetalhe"/></div>
                 </div>
                 <div class="modal-footer">
-                    <form action="deletarFilme" method="post" enctype="multipart/form-data" class="d-inline-block">
-                        <input type="hidden" name="id" class="fwdIdFilme" value=""/>
+                    <form v-on:submit.prevent="deleteMovie" method="post" class="d-inline-block">
+                        <input type="hidden" name="id" class="fwdIdFilme inptApagar" v-model="movieId"/>
                         <button type="submit" class="btn btn-danger">Excluir</button>
                     </form>
                     <button type="button" class="btn btn-blue-nav" data-dismiss="modal">Cancelar</button>
                 </div>
                 
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Editar -->
-        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEdit" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <div class="div--modal__editar"><h5 class="modal-title">Editar filme</h5></div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="editarFilme" method="post" enctype="multipart/form-data" class="d-inline-block">
-                    <div class="modal-body modal-body-bg">
-                        <div class="form-group">
-                            <input type="text" placeholder="Nome" name="nome" class="form-control fwdTituloEdit" required="required"/>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" id="sel1" v-model="movie.category">
-                                <option v-for="category in categoryes" :value="[category]" value="[category]">{{category.name}}</option> 
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" placeholder="Lançamento" name="lancamento" class="form-control fwdLancamentoEdit" required="required"/>
-                        </div>
-                        <div class="form-group">
-                            <textarea  placeholder="Informações" name="informacoes" rows="4" class="form-control fwdInformacoesEdit" required="required"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <div class='input-wrapper'>
-                                <div class="w100 text-center">
-                                    <label for='fileEdit'>
-                                        Selecionar imagem de capa
-                                    </label>
-                                </div>
-                                <div class="w100 text-center">
-                                    <input type="file" name="fileEdit" id="fileEdit" size="60" />
-                                    <img id="img-1-edit" class="img-page" src="#" alt="" />
-                                    <input type="hidden" name="imgFilmeEdit" id="imgFilmeEdit" value="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                            <input type="hidden" name="id" class="fwdIdFilme" value=""/>
-                            <button type="submit" class="btn btn-success">Alterar</button>
-                            <button type="button" class="btn btn-blue-nav" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
                 </div>
             </div>
         </div>
@@ -240,8 +241,10 @@
                 originalMovies: [],
                 movieSearch: '',
                 movie:{},
+                movieEdit:{},
                 notifications:[],
                 categoryes:[],
+                movieId: ''
             }
         },
         computed: {
@@ -258,7 +261,6 @@
                 this.$http.get('https://limitless-tundra-52590.herokuapp.com/api/v1/movie/all').then((response) => {
                     this.movies = response.body;
                     this.originalMovies = this.movies
-                    console.log(this.originalMovies[0].images);
                 }, (response) => {
 
                 });
@@ -292,6 +294,50 @@
                     this.notifications.push({
                         type: 'error',
                         message: 'Filme não cadastrado.'
+                    });
+                });
+            },
+
+            editMovie: function()
+            {
+                this.movieId               = $(".inptEdit").val();
+                this.movieEdit.name        = $("#name_edit").val();
+                this.movieEdit.publishIn   = $("#ano_edit").val();
+                this.movieEdit.description = $("#informacoes_edit").val();
+
+                this.$http.put('https://limitless-tundra-52590.herokuapp.com/api/v1/movie/' + this.movieId, this.movieEdit, {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }).then((response) => {
+                    this.notifications.push({
+                        type: 'success',
+                        message: 'Filme alterado com sucesso'
+                    });
+                    this.fetchMovieData();
+                }, (response) => {
+                    this.notifications.push({
+                        type: 'error',
+                        message: 'Filme não alterado'
+                    });
+                });
+            },
+
+            deleteMovie: function()
+            {   
+                var id = $(".inptApagar").val();
+                this.movieId = id;
+
+                this.$http.delete('https://limitless-tundra-52590.herokuapp.com/api/v1/movie/' + id, this.movie, {
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    }
+                }).then((response) => {
+                    location.reload();
+                }, (response) => {
+                    this.notifications.push({
+                        type: 'danger',
+                        message: 'Filme não excluído'
                     });
                 });
             },
