@@ -33,7 +33,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr id="filme" class="fwdDetalhe" :data-item="movie.id" v-for="movie in movies">
+                                                <tr id="filme" class="fwdDetalhe" :data-item="movie.id" v-for="movie in movies" v-bind:key="movie.id">
                                                     <td class="fwdId" :data-item="movie.id">{{ movie.id }}</td>
                                                     <td class="fwdNome" :data-item="movie.id">{{ movie.name }}</td>
                                                     <td class="fwdGenero" :data-item="movie.id"><span v-if="movie.category && movie.category[0]">{{movie.category[0].name}}</span></td>
@@ -98,7 +98,9 @@
                             <textarea  placeholder="Informações" name="informacoes" v-model="movie.description" id="movie_description" rows="4" class="form-control" required="required"></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="text" placeholder="Link da imagem" name="imagem" class="form-control" required="required"/>
+                            <select class="form-control" id="selimg1" v-model="movie.images">
+                                <option v-for="image in images" :value="[image]" value="[image]">{{image.url}}</option> 
+                            </select>
                         </div>
                         <!-- <div class="form-group">
                             <div class='input-wrapper'>
@@ -151,6 +153,11 @@
                         </div>
                         <div class="form-group">
                             <textarea  placeholder="Informações" name="informacoes" rows="4" class="form-control fwdInformacoesEdit" id="informacoes_edit" required="required"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="selimg1" v-model="movieEdit.images">
+                                <option v-for="image in images" :value="[image]" value="[image]">{{image.url}}</option> 
+                            </select>
                         </div>
                         <div class="form-group">
                             <div class='input-wrapper'>
@@ -241,10 +248,12 @@
                 originalMovies: [],
                 movieSearch: '',
                 movie:{},
+                movieDelete:{},
                 movieEdit:{},
                 notifications:[],
                 categoryes:[],
-                movieId: ''
+                images:[],
+                movieId: '',
             }
         },
         computed: {
@@ -254,6 +263,7 @@
         {
             this.fetchMovieData();
             this.categoryData();
+            this.imageData();
         },
         methods: {
             fetchMovieData: function()
@@ -261,8 +271,9 @@
                 this.$http.get('https://limitless-tundra-52590.herokuapp.com/api/v1/movie/all').then((response) => {
                     this.movies = response.body;
                     this.originalMovies = this.movies
+                    this.$forceUpdate();
                 }, (response) => {
-
+                    
                 });
             },
 
@@ -271,14 +282,27 @@
                 this.$http.get('https://limitless-tundra-52590.herokuapp.com/api/v1/category/all').then((response) => {
                     this.categoryes = response.body;
                     this.originalCategoryes = this.categoryes
-                    console.log(this.originalCategoryes)
+                }, (response) => {
+
+                });
+            },
+
+            imageData: function()
+            {
+                this.$http.get('https://limitless-tundra-52590.herokuapp.com/api/v1/image/all').then((response) => {
+                    this.images = response.body;
+                    this.originalImages = this.images
                 }, (response) => {
 
                 });
             },
 
             addMovie: function()
-            {
+            {   
+                // var img = $(".fwdImgCapaAdd").val();
+                // this.movie.images = [{id:"1231232344", created: "10/06/2018 10:10:10", url: img}];
+                // console.log(this.movie.images);
+                //return false;
                 this.$http.post('https://limitless-tundra-52590.herokuapp.com/api/v1/movie', this.movie, {
                     headers : {
                         'Content-Type' : 'application/json',
@@ -289,7 +313,7 @@
                         type: 'success',
                         message: 'Filme Cadastrado com sucesso.'
                     });
-                    this.fetchMovieData();
+                    //this.fetchMovieData();
                 }, (response) => {
                     this.notifications.push({
                         type: 'error',
@@ -310,11 +334,11 @@
                         'Content-Type' : 'application/json'
                     }
                 }).then((response) => {
+                    this.fetchMovieData();
                     this.notifications.push({
                         type: 'success',
                         message: 'Filme alterado com sucesso'
                     });
-                    this.fetchMovieData();
                 }, (response) => {
                     this.notifications.push({
                         type: 'error',
@@ -325,16 +349,17 @@
 
             deleteMovie: function()
             {   
-                var id = $(".inptApagar").val();
-                this.movieId = id;
+                this.movieId = $(".inptApagar").val();
 
-                this.$http.delete('https://limitless-tundra-52590.herokuapp.com/api/v1/movie/' + id, this.movie, {
+                this.$http.delete('https://limitless-tundra-52590.herokuapp.com/api/v1/movie/' + this.movieId, this.movieDelete, {
                     headers : {
                         'Content-Type' : 'application/json'
                     }
                 }).then((response) => {
+                    this.fetchMovieData();
                     location.reload();
                 }, (response) => {
+                    //this.fetchMovieData();
                     this.notifications.push({
                         type: 'danger',
                         message: 'Filme não excluído'

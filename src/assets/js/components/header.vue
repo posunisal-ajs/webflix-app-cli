@@ -21,12 +21,7 @@
 	           <!-- para esconder usar "d-none" -->
 	          <ul class="navbar-nav justify-content-end d-lg-flex ml-md-auto navbar-mobile">
 	          	<li>
-	           		
-	                 <form action="filmes" method="post">
-						<button class="btn-clean-ico dropdown-item fa-icon--m" type="submit"><i class="fa fa-film fa-icon-size"></i></button> 
-					</form>
-	                
-	                
+								<a href="./" class="btn-clean-ico dropdown-item fa-icon--m"><i class="fa fa-film fa-icon-size"></i></a> 
 	            </li>
 	                
 	            <li class="nav-item">
@@ -36,32 +31,21 @@
 	                </a>
 	                <div class="dropdown-menu">
 	                    <!-- <div class="pl-4 pr-4 pb-1"><a href="login.html" class="btn btn-personalised-full">Entrar</a></div>-->
-	                    <form action="listaFilmes" method="post">
-						    <input class="btn-clean-drop dropdown-item" type="submit" value="Lista de filmes" /> 
-						</form>
-						<form action="listaUsuarios" method="post">
-						    <input class="btn-clean-drop dropdown-item" type="submit" value="Lista de usuários" /> 
-						</form>
-				        <form action="logout" method="post">
-						    <input class="btn-clean-drop dropdown-item" type="submit" value="Sair" /> 
-						</form>
-	                </div>
+	                    <!-- <form action="listaFilmes" method="post">
+													<input class="btn-clean-drop dropdown-item" type="submit" value="Lista de filmes" /> 
+											</form>
+											<form action="listaUsuarios" method="post">
+													<input class="btn-clean-drop dropdown-item" type="submit" value="Lista de usuários" /> 
+											</form>
+													<form action="logout" method="post">
+													<input class="btn-clean-drop dropdown-item" type="submit" value="Sair" /> 
+											</form> -->
+										</div>
 	              </div>
 	            </li>
-	            <!-- <li class="nav-item"> -->
-	              <!-- <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a> -->
-	            <!--   <a class="nav-link" href="minhas-inscricoes.html">Minhas inscrições<span class="sr-only">(current)</span></a>
-	            </li> -->
 	           
 	            <li class="nav-item">
 	              <a class="nav-link">
-					<!-- 	              	
-		              	<%-- <%
-					        if (request.getAttribute("email") != null) {%>
-					        Olá, <%= request.getAttribute("email")%>
-					        <%}
-					     %> --%>
-				     -->
 	              </a>
 	            </li>
 	
