@@ -16,36 +16,26 @@
                                 <div class="clearfix"></div>
                                     <div class="row">
                                     <div class="col pt-4">
-                                        <h2 class="pb-4">Lista de filmes</h2>
-                                        <button data-target="#modalAddCategory" data-toggle="modal" class="btn btn-default pull-right mb-4 mr-2">Categorias<i class="fa fa-plus ml-1" ></i></button>
-                                        <button data-target="#modalAddImage" data-toggle="modal" class="btn btn-default pull-right mb-4 mr-2">Imagens<i class="fa fa-plus ml-1" ></i></button>
+                                        <h2 class="pb-4">Lista de categorias</h2>
                                         <div class="form-group">
                                             <input type="text" name="search" v-model="movieSearch" placeholder="Procurar filmes" class="form-control" v-on:keyup="searchMovie">
                                         </div>
+                                        <!-- <router-link :to="{ name: 'create_funcionario' }" class="btn btn-success pull-right mb-4">Adicionar <i class="fa fa-plus ml-1" ></i></router-link> -->
                                         <button data-target="#modalAdd" data-toggle="modal" class="btn btn-success pull-right mb-4">Filme <i class="fa fa-plus ml-1" ></i></button>
+                                        <button data-target="#modalAddCategory" data-toggle="modal" class="btn btn-success pull-right mb-4 mr-2">Categoria<i class="fa fa-plus ml-1" ></i></button>
                                         <table class="table table-car-mob">
                                             <thead class="thead-default">
                                                 <tr>
                                                 <th class="w10">#</th>
-                                                <th class="w30">Filme</th>
-                                                <th class="w15">Gênero</th>
-                                                <th class="w25">Imagem</th>
-                                                <th class="w30">Ações</th>
+                                                <th class="w30">Categoria</th>
+                                                <th class="w15">Data</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr id="filme" class="fwdDetalhe" :data-item="movie.id" v-for="movie in movies" v-bind:key="movie.id" :domCache="false">
-                                                    <td class="fwdId" :data-item="movie.id">{{ movie.id }}</td>
-                                                    <td class="fwdNome" :data-item="movie.id">{{ movie.name }}</td>
-                                                    <td class="fwdGenero" :data-item="movie.id"><span v-if="movie.category && movie.category[0]">{{movie.category[0].name}}</span></td>
-                                                    <td class="fwdLancamento d-none" :data-item="movie.id">{{movie.publishIn}}</td>
-                                                    <td class="fwdInformacoes d-none" :data-item="movie.id">{{movie.description}}</td>
-                                                    <td class="fwdImg" :data-item="movie.id">
-                                                        <span class="fwdImgName d-none" :data-item="movie.id"></span>
-                                                        <span v-if="movie.images && movie.images[0]">
-                                                            <img class="img-table fwdImageTable" :data-item="movie.id" :src="movie.images[0].url" />
-                                                        </span>
-                                                    </td>
+                                                <tr id="filme" class="fwdDetalhe" :data-item="category.id" v-for="category in categoryes" v-bind:key="category.id" :domCache="false">
+                                                    <td class="fwdId" :data-item="category.id">{{ category.id }}</td>
+                                                    <td class="fwdNome" :data-item="category.id">{{ category.name }}</td>
+                                                    <td class="fwdGenero" :data-item="category.id"></td>
                                                     <td>
                                                         <div class="d-inline-block">
                                                             <button type="submit" class="btn btn-icon icon-1 actOpenEditar" :data-item="movie.id" data-target="#modalEdit" data-toggle="modal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
@@ -87,6 +77,11 @@
                         <div class="form-group">
                             <input type="text" placeholder="Nome" name="nome" v-model="movie.name" id="movie_name" class="form-control" required="required"/>
                         </div>
+                       <div class="form-group">
+                            <select class="form-control" id="sel1" v-model="movie.category">
+                                <option v-for="category in categoryes" :value="[category]" value="[category]">{{category.name}}</option> 
+                            </select>
+                        </div>
                         <div class="form-group">
                             <input type="text" placeholder="Ano de Lançamento" name="lancamento" v-model="movie.publishIn" id="movie_publishIn" class="form-control" required="required"/>
                         </div>
@@ -94,13 +89,6 @@
                             <textarea  placeholder="Informações" name="informacoes" v-model="movie.description" id="movie_description" rows="4" class="form-control" required="required"></textarea>
                         </div>
                         <div class="form-group">
-                        <div class="form-group">
-                           <label>Selecione uma categoria</label>
-                            <select class="form-control" id="sel1" v-model="movie.category">
-                                <option v-for="category in categoryes" :value="[category]" value="[category]">{{category.name}}</option> 
-                            </select>
-                        </div>
-                            <label>Selecione uma imagem</label>
                             <select class="form-control" id="selimg1" v-model="movie.images">
                                 <option v-for="image in images" :value="[image]" value="[image]">{{image.url}}</option> 
                             </select>
@@ -146,7 +134,11 @@
                         <div class="form-group">
                             <input type="text" placeholder="Nome" name="nome" id="name_edit" class="form-control fwdTituloEdit" required="required"/>
                         </div>
-                        
+                        <div class="form-group">
+                            <select class="form-control" id="sel1" v-model="movieEdit.category">
+                                <option v-for="category in categoryes" :value="[category]" value="[category]" id="category_edit">{{category.name}}</option> 
+                            </select>
+                        </div>
                         <div class="form-group">
                             <input type="text" placeholder="Ano de lançamento" name="lancamento" class="form-control fwdLancamentoEdit" id="ano_edit" required="required"/>
                         </div>
@@ -154,13 +146,6 @@
                             <textarea  placeholder="Informações" name="informacoes" rows="4" class="form-control fwdInformacoesEdit" id="informacoes_edit" required="required"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Selecione uma categoria</label>
-                            <select class="form-control" id="sel1" v-model="movieEdit.category">
-                                <option v-for="category in categoryes" :value="[category]" value="[category]" id="category_edit">{{category.name}}</option> 
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Selecione uma imagem</label>
                             <select class="form-control" id="selimg1" v-model="movieEdit.images">
                                 <option v-for="image in images" :value="[image]" value="[image]">{{image.url}}</option> 
                             </select>
@@ -251,37 +236,11 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <notification v-bind:notifications="notifications"></notification>
                 <div class="modal-body modal-body-bg">
                     <input type="text" placeholder="Nome da categoria" name="addCategoria" class="form-control" id="categoria_add" v-model="categoryAdd.name" required="required"/>
                 </div>
                 <div class="modal-footer">
                     <form v-on:submit.prevent="addCategory" method="post" class="d-inline-block">
-                        <button type="submit" class="btn btn-success">Adicionar</button>
-                    </form>
-                    <button type="button" class="btn btn-blue-nav" data-dismiss="modal">Cancelar</button>
-                </div>
-                
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Add Image -->
-        <div class="modal fade" id="modalAddImage" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <div class="div--modal__adicionar"><h5 class="modal-title">Adicionar imagem</h5></div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <notification v-bind:notifications="notifications"></notification>
-                <div class="modal-body modal-body-bg">
-                    <input type="text" placeholder="Url da imagem na Web" name="addImage" class="form-control" id="image_add" v-model="imageAdd.url" required="required"/>
-                </div>
-                <div class="modal-footer">
-                    <form v-on:submit.prevent="addImage" method="post" class="d-inline-block">
                         <button type="submit" class="btn btn-success">Adicionar</button>
                     </form>
                     <button type="button" class="btn btn-blue-nav" data-dismiss="modal">Cancelar</button>
@@ -309,7 +268,6 @@
                 notifications:[],
                 categoryes:[],
                 categoryAdd:{},
-                imageAdd:{},
                 images:[],
                 movieId: '',
             }
@@ -448,33 +406,11 @@
                         type: 'success',
                         message: 'Categoria Cadastrada com sucesso.'
                     });
-                    this.categoryData();
+                    this.fetchMovieData();
                 }, (response) => {
                     this.notifications.push({
                         type: 'error',
                         message: 'Categoria não cadastrada.'
-                    });
-                });
-            },
-
-            addImage: function()
-            {   cache: false,
-                this.$http.post('https://limitless-tundra-52590.herokuapp.com/api/v1/image', this.imageAdd, {
-                    headers : {
-                        'Content-Type' : 'application/json',
-                        "Accept": "*/*"
-                    }
-                }).then((response) => {
-                    $(".alert").remove();
-                    this.notifications.push({
-                        type: 'success',
-                        message: 'Imagem Cadastrada com sucesso.'
-                    });
-                    this.imageData();
-                }, (response) => {
-                    this.notifications.push({
-                        type: 'error',
-                        message: 'Imagem não cadastrada.'
                     });
                 });
             },
