@@ -33,7 +33,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr id="filme" class="fwdDetalhe" :data-item="movie.id" v-for="movie in movies" v-bind:key="movie.id">
+                                                <tr id="filme" class="fwdDetalhe" :data-item="movie.id" v-for="movie in movies" v-bind:key="movie.id" :domCache="false">
                                                     <td class="fwdId" :data-item="movie.id">{{ movie.id }}</td>
                                                     <td class="fwdNome" :data-item="movie.id">{{ movie.name }}</td>
                                                     <td class="fwdGenero" :data-item="movie.id"><span v-if="movie.category && movie.category[0]">{{movie.category[0].name}}</span></td>
@@ -267,7 +267,8 @@
         },
         methods: {
             fetchMovieData: function()
-            {
+            {   
+                cache: false,
                 this.$http.get('https://limitless-tundra-52590.herokuapp.com/api/v1/movie/all').then((response) => {
                     this.movies = response.body;
                     this.originalMovies = this.movies
@@ -298,7 +299,7 @@
             },
 
             addMovie: function()
-            {   
+            {   cache: false,
                 // var img = $(".fwdImgCapaAdd").val();
                 // this.movie.images = [{id:"1231232344", created: "10/06/2018 10:10:10", url: img}];
                 // console.log(this.movie.images);
@@ -309,10 +310,13 @@
                         "Accept": "*/*"
                     }
                 }).then((response) => {
+                    $(".alert").remove();
                     this.notifications.push({
                         type: 'success',
                         message: 'Filme Cadastrado com sucesso.'
                     });
+                    this.fetchMovieData();
+                    //location.reload();
                     //this.fetchMovieData();
                 }, (response) => {
                     this.notifications.push({
@@ -323,7 +327,7 @@
             },
 
             editMovie: function()
-            {
+            {   cache: false,
                 this.movieId               = $(".inptEdit").val();
                 this.movieEdit.name        = $("#name_edit").val();
                 this.movieEdit.publishIn   = $("#ano_edit").val();
@@ -335,10 +339,13 @@
                     }
                 }).then((response) => {
                     this.fetchMovieData();
+                    $(".alert").remove();
                     this.notifications.push({
                         type: 'success',
                         message: 'Filme alterado com sucesso'
                     });
+                    this.fetchMovieData();
+                    //location.reload();
                 }, (response) => {
                     this.notifications.push({
                         type: 'error',
@@ -348,7 +355,7 @@
             },
 
             deleteMovie: function()
-            {   
+            {   cache: false,
                 this.movieId = $(".inptApagar").val();
 
                 this.$http.delete('https://limitless-tundra-52590.herokuapp.com/api/v1/movie/' + this.movieId, this.movieDelete, {
@@ -356,8 +363,10 @@
                         'Content-Type' : 'application/json'
                     }
                 }).then((response) => {
+                    $("#modalDelete").hide();
+                    $(".modal-backdrop").remove();
                     this.fetchMovieData();
-                    location.reload();
+                    //location.reload();
                 }, (response) => {
                     //this.fetchMovieData();
                     this.notifications.push({

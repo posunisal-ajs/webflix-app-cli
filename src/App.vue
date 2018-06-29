@@ -1,6 +1,6 @@
 <template>  
     <div>
-        <div id="page" class="funcionarios-cont">
+        <div id="page" class="filmes-cont">
             <menuSite></menuSite>
             <transition name="fade">
                 <router-view></router-view>
