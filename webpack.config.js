@@ -37,10 +37,11 @@ module.exports = {
         }
     },
     devServer: {
-        historyApiFallback: true,
-        noInfo: true
+        historyApiFallback: false,
+        noInfo: false
     },
-    devtool: '#eval-source-map'
+    devtool: '#eval-source-map',
+    cache: false,
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -58,7 +59,7 @@ if (process.env.NODE_ENV === 'production') {
             }
         }),
         new webpack.LoaderOptionsPlugin({
-            minimize: true
+            minimize: false
         })
     ])
 }

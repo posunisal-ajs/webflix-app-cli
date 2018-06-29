@@ -9,7 +9,7 @@ var sourcemaps  = require('gulp-sourcemaps');
 
 gulp.task('serve', ['css'], function() {
     browserSync.init({
-        proxy: "http://localhost:8081/",
+        proxy: "http://localhost:3000/",
         browser: "chrome",
     });
 

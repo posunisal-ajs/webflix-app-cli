@@ -1,0 +1,159 @@
+@font-face {
+	font-family: 'Simple Sans-Medium';
+	src: url('../../src/fonts/SimpleSans-Medium.eot');
+	src: url('../../src/fonts/SimpleSans-Medium.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-Medium.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-Medium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Simple Sans-Bold';
+	src: url('../../src/fonts/SimpleSans-Bold.eot');
+	src: url('../../src/fonts/SimpleSans-Bold.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-Bold.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Simple Sans-Regular';
+	src: url('../../src/fonts/SimpleSans-Regular.eot');
+	src: url('../../src/fonts/SimpleSans-Regular.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-Regular.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Simple Sans-Light';
+	src: url('../../src/fonts/SimpleSans-Light.eot');
+	src: url('../../src/fonts/SimpleSans-Light.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-Light.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Simple Sans-Black';
+	src: url('../../src/fonts/SimpleSans-Black.eot');
+	src: url('../../src/fonts/SimpleSans-Black.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-Black.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-Black.ttf') format('truetype');
+	font-weight: 900;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Simple Sans-RegularOblique';
+	src: url('../../src/fonts/SimpleSans-RegularOblique.eot');
+	src: url('../../src/fonts/SimpleSans-RegularOblique.eot?#iefix') format('embedded-opentype');
+	src: url('../../src/fonts/SimpleSans-RegularOblique.woff') format('woff');
+	src: url('../../src/fonts/SimpleSans-RegularOblique.ttf') format('truetype');
+	font-weight: 500;
+	font-style: italic;
+}
+
+
+.img-rodape {
+	padding-right: 20px;
+}
+
+
+.funcionarios-cont .padd-mancha {
+		margin-bottom: 150px; 
+		float: inherit;
+		padding-top: 60px; 
+	}
+
+
+.alert-success {
+	clear: both;
+}
+
+
+/*parts*/
+
+
+.navbar-toggle .icon-bar:nth-of-type(2) {
+    top: 1px;
+}
+
+
+.navbar-toggle .icon-bar:nth-of-type(3) {
+    top: 2px;
+}
+
+
+.navbar-toggle .icon-bar {
+    position: relative;
+    transition: all 500ms ease-in-out;
+}
+
+
+.navbar-toggle.active .icon-bar:nth-of-type(1) {
+    top: 6px;
+    -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+}
+
+
+.navbar-toggle.active .icon-bar:nth-of-type(2) {
+    background-color: transparent;
+}
+
+
+.navbar-toggle.active .icon-bar:nth-of-type(3) {
+    top: -6px;
+    -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+}
+
+
+.copyrights{
+margin-top:25px;
+}
+
+
+footer.container-fluid.text-center.foot {
+    background: #383838;
+}
+
+
+.dark-line{
+border-top: 1px solid #525252;
+}
+
+
+.white-txt{
+color: #FFF;
+}
+
+
+a.link {
+    color: #008acc;
+    border: 1px #008acc solid;
+    padding: 5px;
+    text-decoration: none;
+}
+
+
+a.link:hover {
+background: #008acc;
+    color: #383838;
+}
+
+
+.footimg{
+width: 5rem;
+}
+/*# sourceMappingURL=templates.css.map */
