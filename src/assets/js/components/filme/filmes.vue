@@ -105,12 +105,12 @@
                                 <option v-for="image in images" :value="[image]" value="[image]">{{image.url}}</option> 
                             </select>
                         </div>
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <div class='input-wrapper'>
                                 <div class="w100 text-center">
-                                    <label for='file'>
+                                    <!-- <label for='file'>
                                         Selecionar imagem de capa
-                                    </label>
+                                    </label> -->
                                 </div>
                                 <div class="w100 text-center">
                                 <input type="file" name="file" id="file" size="60" />
@@ -118,7 +118,7 @@
                                 <input type="hidden" name="imgFilme" id="imgFilme" value="">
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="modal-footer">
                             <input type="hidden" name="id" class="fwdIdFilme" value=""/>
@@ -168,9 +168,9 @@
                         <div class="form-group">
                             <div class='input-wrapper'>
                                 <div class="w100 text-center">
-                                    <label for='fileEdit'>
+                                    <!-- <label for='fileEdit'>
                                         Selecionar imagem de capa
-                                    </label>
+                                    </label> -->
                                 </div>
                                 <div class="w100 text-center">
                                     <input type="file" name="fileEdit" id="fileEdit" size="60" />
